@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class Travel extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory, Sluggable, HasUuids;
 
     protected $table = 'travels';
 
@@ -20,6 +21,11 @@ class Travel extends Model
         'description',
         'number_of_days'
     ];
+
+    public function tours()
+    {
+        return $this->hasMany(Tour::class);
+    }
 
     public function sluggable(): array
     {
